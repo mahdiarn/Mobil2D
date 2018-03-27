@@ -19,15 +19,9 @@ class TestContext( BaseContext ):
         self.shader = shaders.compileProgram(VERTEX_SHADER,FRAGMENT_SHADER)
         self.vbo = vbo.VBO(
             array( [
-                [  0, 1, 0 ],
-                [ -1,-1, 0 ],
-                [  1,-1, 0 ],
-                [  2,-1, 0 ],
-                [  4,-1, 0 ],
-                [  4, 1, 0 ],
-                [  2,-1, 0 ],
-                [  4, 1, 0 ],
-                [  2, 1, 0 ],
+                [  0,0, 0 ],
+                [  -1,-1, 0 ],
+                [  1, -1, 0 ],                
             ],'f')
         )
         
@@ -39,7 +33,7 @@ class TestContext( BaseContext ):
             try:
                 glEnableClientState(GL_VERTEX_ARRAY);
                 glVertexPointerf( self.vbo )
-                glDrawArrays(GL_TRIANGLES, 0, 9)
+                glDrawArrays(GL_TRIANGLES, 0, 3)
             finally:
                 self.vbo.unbind()
                 glDisableClientState(GL_VERTEX_ARRAY);
