@@ -14,7 +14,7 @@ class TestContext( BaseContext ):
         }""", GL_VERTEX_SHADER)
         FRAGMENT_SHADER = shaders.compileShader("""#version 120
         void main() {
-            gl_FragColor = vec4( 0, 1, 0, 1 );
+            gl_FragColor = vec4( 1, 1, 1, 1 );
         }""", GL_FRAGMENT_SHADER)
         self.shader = shaders.compileProgram(VERTEX_SHADER,FRAGMENT_SHADER)
         self.vbo = vbo.VBO(
