@@ -134,7 +134,7 @@ def main():
 		CarBody(x)
 		glColor3fv((1, 1, 1))
 		glTranslatef(4, 0.8, -1.0)
-		glRotatef(x*10, 0, 0, 1)
+		glRotatef(x*20, 0, 0, 1)
 		radius,sides,posx, posy = 0.9,32,4,0.8
 		glTranslatef(posx * -1, posy * -1, 1.0)
 		drawCircle(radius,sides,posx,posy)
@@ -142,7 +142,7 @@ def main():
 		glPushMatrix()
 		posx, posy = 9.2,0.8
 		glTranslatef(posx, posy, -1.0)
-		glRotatef(x*10, 0, 0, 1)
+		glRotatef(x*20, 0, 0, 1)
 		glTranslatef(posx * -1, posy * -1, 1.0)
 		
 		drawCircle(radius,sides,posx,posy)
