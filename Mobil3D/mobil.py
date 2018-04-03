@@ -1,3 +1,4 @@
+import time
 from OpenGLContext import testingcontext
 BaseContext = testingcontext.getInteractive()
 from OpenGL.GL import *
@@ -184,7 +185,7 @@ class TestContext( BaseContext ):
                 glVertexPointer(3, GL_FLOAT, 24, self.vbo )
                 glColorPointer(3, GL_FLOAT, 24, self.vbo+12 )
                 glRotated(-75,1,0,0)
-                glRotated(-180,0,0,1)
+                
                 glDrawArrays(GL_TRIANGLES, 0, 120)
             finally:
                 self.vbo.unbind()
