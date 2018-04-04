@@ -192,7 +192,7 @@ class TestContext( BaseContext ):
                 g = gluNewQuadric()
                 glRotated(90, 1, 0, 0)
                 
-                glTranslate(1, -1.85, -1.2)
+                glTranslate(1, -1.85, -1.25)
                 gluCylinder(g, base, base, height, 30, 30)
                 glRotated(-180, 1, 0, 0) 
                 gluDisk(g, 0, base, 30, 30)
