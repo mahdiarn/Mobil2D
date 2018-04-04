@@ -2,6 +2,7 @@ import time
 from OpenGLContext import testingcontext
 BaseContext = testingcontext.getInteractive()
 from OpenGL.GL import *
+from OpenGL.GLU import *
 from OpenGL.arrays import vbo
 from OpenGLContext.arrays import *
 from OpenGL.GL import shaders
@@ -185,8 +186,46 @@ class TestContext( BaseContext ):
                 glVertexPointer(3, GL_FLOAT, 24, self.vbo )
                 glColorPointer(3, GL_FLOAT, 24, self.vbo+12 )
                 glRotated(-75,1,0,0)
-                
                 glDrawArrays(GL_TRIANGLES, 0, 120)
+                base = 0.5
+                height = 0.3
+                g = gluNewQuadric()
+                glRotated(90, 1, 0, 0)
+                
+                glTranslate(1, -1.85, -1.2)
+                gluCylinder(g, base, base, height, 30, 30)
+                glRotated(-180, 1, 0, 0) 
+                gluDisk(g, 0, base, 30, 30)
+                glRotated(-180, 1, 0, 0) 
+                glTranslate(0, 0, height)
+                gluDisk(g, 0, base, 30, 30)
+                
+                glTranslate(0, 0, -1*height)
+                glTranslate(-3, 0, 0)
+                gluCylinder(g, base, base, height, 30, 30)
+                glRotated(-180, 1, 0, 0) 
+                gluDisk(g, 0, base, 30, 30)
+                glRotated(-180, 1, 0, 0) 
+                glTranslate(0, 0, height)
+                gluDisk(g, 0, base, 30, 30)
+                
+                glTranslate(0, 0, -1*height)
+                glTranslate(0, 0, 2.2)
+                gluCylinder(g, base, base, height, 30, 30)
+                glRotated(-180, 1, 0, 0) 
+                gluDisk(g, 0, base, 30, 30)
+                glRotated(-180, 1, 0, 0) 
+                glTranslate(0, 0, height)
+                gluDisk(g, 0, base, 30, 30)
+                
+                glTranslate(0, 0, -1*height)
+                glTranslate(3, 0, 0)
+                gluCylinder(g, base, base, height, 30, 30)
+                glRotated(-180, 1, 0, 0) 
+                gluDisk(g, 0, base, 30, 30)
+                glRotated(-180, 1, 0, 0) 
+                glTranslate(0, 0, height)
+                gluDisk(g, 0, base, 30, 30)
             finally:
                 self.vbo.unbind()
                 glDisableClientState(GL_VERTEX_ARRAY);
