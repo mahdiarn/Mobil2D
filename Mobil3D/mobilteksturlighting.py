@@ -38,7 +38,7 @@ class TestContext( BaseContext ):
         glLightfv( GL_LIGHT1, GL_AMBIENT, GLfloat_4(0.2, .2, .2, 1) );
         glLightfv(GL_LIGHT1, GL_DIFFUSE, GLfloat_3(self.lightIntensity,self.lightIntensity,self.lightIntensity));
         glLightfv(GL_LIGHT1, GL_POSITION, GLfloat_4(0,0,3,1) );
-    def loadImages( self, imageName = "nehe_wall.bmp" ):
+    def loadImages( self, imageName = "texture.bmp" ):
         """Load an image from a file using PIL,
         produces 3 textures to demo filter types.
         Converts the paletted image to RGB format.
