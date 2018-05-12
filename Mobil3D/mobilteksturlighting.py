@@ -23,17 +23,23 @@ class TestContext( BaseContext ):
         self.lightsOn = 1 # boolean
         self.currentZOffset = -6
         self.rotationCycle = 8.0
-	self.lightIntensity = 1
+        self.carTranslation = 0
+        self.lightIntensity = 1
         self.addEventHandler(
             'keypress', name = 'f', function = self.OnFilter
         )
         self.addEventHandler(
             'keypress', name = 'l', function = self.OnLighterToggle
         )
-	self.addEventHandler(
-            'keypress', name = 'k', function = self.OnDarkerToggle
-        )
-       
+        self.addEventHandler(
+				'keypress', name = 'k', function = self.OnDarkerToggle
+			)
+        self.addEventHandler(
+				'keypress', name = 'd', function = self.OnGoRight
+			)
+        self.addEventHandler(
+				'keypress', name = 'a', function = self.OnGoLeft
+			)   
         print self.usage
         glLightfv( GL_LIGHT1, GL_AMBIENT, GLfloat_4(0.2, .2, .2, 1) );
         glLightfv(GL_LIGHT1, GL_DIFFUSE, GLfloat_3(self.lightIntensity,self.lightIntensity,self.lightIntensity));
@@ -46,11 +52,11 @@ class TestContext( BaseContext ):
         im = open(imageName)
         try:
             ## Note the conversion to RGB the crate bitmap is paletted!
-            im = im.convert( 'RGB')
-            ix, iy, image = im.size[0], im.size[1], im.tostring("raw", "RGBA", 0, -1)
+            im = im.convert( 'RGBA')
+            ix, iy, image = im.size[0], im.size[1], im.tobytes("raw", "BGRA", 0, -1)
         except SystemError:
-            ix, iy, image = im.size[0], im.size[1], im.tostring("raw", "RGBX", 0, -1)
-        assert ix*iy*4 == len(image), """Image size != expected array size"""
+            ix, iy, image = im.size[0], im.size[1], im.tobytes("raw", "RGB", 0, -1)
+        #assert ix*iy*4 == len(image), """Image size != expected array size"""
         IDs = []
         # a Nearest-filtered texture...
         ID = glGenTextures(1)
@@ -98,10 +104,12 @@ class TestContext( BaseContext ):
         # re-select our texture, could use other generated textures
         # if we had generated them earlier...
         glBindTexture(GL_TEXTURE_2D, self.imageIDs[self.currentFilter])
-        
-        self.drawCube()
-        self.drawRoad()
         self.drawHouse()
+        self.drawRoad()
+        glTranslatef(self.carTranslation, 0, 0)
+        self.drawCube()
+        
+        
 	glTranslatef(0,-1.0,-2.0);
         glRotated(90,1,0,0)
         self.draw_cylinder()
@@ -130,6 +138,11 @@ class TestContext( BaseContext ):
         """Handles the key event telling us to toggle the lighting"""
         self.lightIntensity = self.lightIntensity - 0.1
         print "Lights now %d"% (self.lightIntensity)
+    def OnGoRight( self, event ):
+        self.carTranslation = self.carTranslation + 0.2
+		
+    def OnGoLeft ( self, event ):
+        self.carTranslation = self.carTranslation - 0.2
     def drawCube( self ):
         "Draw a cube with both normals and texture coordinates"
         glBegin(GL_TRIANGLES);
