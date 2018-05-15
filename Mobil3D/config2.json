@@ -1,0 +1,19 @@
+{
+	"gravity"           :   9.8,
+	"dragFactor"        :   1,
+	"windX"             :   0.0001,
+	"windY"             :   0.0001,
+	"windZ"             :   0,
+	"maxAge"            :   10000,
+	"launchSpeed"       :   0.001,
+	"launchVariation"   :   50,
+	"launchIterval"     :   1,
+	"particleSpeed"    :   0.0006,
+	"particleVariation":   5,
+	"launchColor"       :   [0,0,1,1],
+	"launchSize"        :   0.05,
+	"particleSize"      :   0.05,
+	"initPosX"          :   0,
+	"initPosY"          :   0,
+	"initPosZ"	    :	0
+}

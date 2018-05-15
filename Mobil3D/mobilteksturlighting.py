@@ -12,6 +12,7 @@ except ImportError, err:
 from OpenGL.GLU import *
 from OpenGL.constants import GLfloat_3,GLfloat_4
 from particles import *
+from particles2 import *
 class TestContext( BaseContext ):
     """Texture Filters, Lighting, Keyboard Control"""
     usage ="""Demonstrates filter functions:
@@ -20,7 +21,8 @@ class TestContext( BaseContext ):
 """
     initialPosition = (0,0,3) # set initial camera position, tutorial does the re-positioning
     def OnInit( self ):
-        self.asep = ParticleSystem()	
+        self.asep = ParticleSystem()
+        self.hujan = ParticleSystem2()
         """Load the image on initial load of the application"""
         self.imageIDs = self.loadImages()
         self.currentFilter = 0 # index into imageIDs
@@ -111,6 +113,7 @@ class TestContext( BaseContext ):
         
         glBindTexture(GL_TEXTURE_2D, self.imageIDs[self.currentFilter])
         self.asep.update()
+        self.hujan.update()
         self.drawHouse()
         self.drawRoad()
         glTranslatef(self.carTranslation, 0, 0)
