@@ -40,18 +40,18 @@ class Particle2(object):
 		self.age= 0		
 		self.max_age=params['maxAge']
 
-		self.wind = 0.1
+		self.wind = -20
 		self.size = size	
 		
 		self.color=color
 		self.is_dead = False
 
-	def update(self,dx=0.05,dy=0.05,dz=0.05):
+	def update(self,dx=0.05,dy=0.1,dz=0.05):
 		#self.vx -= dx* self.wind 
 		self.vz += dy* self.wind * -1
 
 		#self.vx *= 1- params['dragFactor']/1000
-		self.vz *= 1- params['dragFactor']/1000
+		self.vz *= 1.098
 
 		self.x += self.vx
 		self.y += self.vy
@@ -92,8 +92,8 @@ class ParticleBurst2(Particle2):
 
 class ParticleSystem2():
 	def __init__(self):		
-		self.x = round(random.uniform(-10.0,10.0),2)
-		self.y = round(random.uniform(-10.0,10.0),2)
+		self.x = round(random.uniform(-20.0,20.0),2)
+		self.y = round(random.uniform(-3.0,3.0),2)
 		self.z = 10
 		self.timer = 0
 		print self.x
@@ -101,7 +101,7 @@ class ParticleSystem2():
 		self.addParticle()
 
 	def addParticle(self):
-		speed = 0.00005
+		speed = params['particleSpeed']
 		angle = 270*3.14/180 + round(random.uniform(-0.5,0.5),2)
 		vx = 0
 		vz = 0
@@ -113,16 +113,16 @@ class ParticleSystem2():
 	def update(self):
 		interval = params['launchIterval']
 		self.timer += 1
-		self.x = round(random.uniform(-10,10),2)
-		self.y = round(random.uniform(-10,10),2)
+		self.x = round(random.uniform(-20,20),2)
+		self.y = round(random.uniform(-3,3),2)
 		if self.timer % interval == 0 or self.timer < 2:		
 			self.addParticle()
 		
 		for i in range(len(particleList)-1,0,-1):
 			p = particleList[i]
-			x = round(random.uniform(-2.0,2.0),2)
-			y = round(random.uniform(-2.0,2.0),2)
-			z = round(random.uniform(-2.0,2.0),2)
+			x = params['windX']
+			y = params['windX']
+			z = 100
 			p.update(x,y,z)
 			p.check_particle_age()			
 			if p.is_dead:					
