@@ -29,7 +29,7 @@ params = utils.config
 
 
 class Particle(object):
-	def __init__(self,x,y,z,vx,vy,vz,color,size):
+	def __init__(self,x,y,z,vx,vy,vz,size):
 		self.x = x	
 		self.y = y		
 		self.z = z
@@ -43,7 +43,6 @@ class Particle(object):
 		self.wind = 0.1
 		self.size = size	
 		
-		self.color=color
 		self.is_dead = False
 
 	def update(self,dx=0.05,dy=0.05,dz=0.05):
@@ -59,7 +58,6 @@ class Particle(object):
 		self.check_particle_age()		
 
 	def draw(self):
-		glColor4fv(self.color)
 		glTexCoord2f(0.0, 0.25)
 		glPushMatrix()
 		glTranslatef(self.x,self.y,self.z)
@@ -71,13 +69,11 @@ class Particle(object):
 		self.age +=1 
 		self.is_dead = self.age >= self.max_age	
 
-		self.color[3]= 1.0 - float(self.age)/float(self.max_age)
 
 class ParticleBurst(Particle):	
 	def __init__(self,x,y,z,vx,vy,vz):
-		color = params['launchColor']
 		size = params['launchSize']		
-		Particle.__init__(self,x,y,z,vx,vy,vz,color,size)
+		Particle.__init__(self,x,y,z,vx,vy,vz,size)
 		self.wind=1				
 
 	def check_particle_age(self):
@@ -99,6 +95,9 @@ class ParticleSystem():
 		self.addParticle()
 
 	def addParticle(self):
+		initX = params['initPosX']
+		initY = params['initPosY']
+		initZ = params['initPosZ']
 		speed = params['particleSpeed']
 		speed *= (1 - random.uniform(0,params['particleVariation'])/100)
 		angle = 270*3.14/180 + round(random.uniform(-0.5,0.5),2)
@@ -106,7 +105,7 @@ class ParticleSystem():
 		vz = speed
 		vy = speed * math.cos(angle) 
 		
-		f = ParticleBurst(-3.1,0,-2,vx,vy,vz )			
+		f = ParticleBurst(initX,initY,initZ,vx,vy,vz )			
 		particleList.append(f)
 
 	def update(self):
@@ -124,7 +123,6 @@ class ParticleSystem():
 			p.update(x,y,z)
 			p.check_particle_age()			
 			if p.is_dead:					
-				p.color = [0.0,0.0,0.0,0.0]				
 				particleList.pop(i)				
 			else:
 				p.draw()

@@ -5,15 +5,11 @@
 	"windY"             :   0.01,
 	"windZ"             :   0,
 	"maxAge"            :   1000,
-	"launchSpeed"       :   0.1,
-	"launchVariation"   :   50,
 	"launchIterval"     :   1,
 	"particleSpeed"    :   0.06,
 	"particleVariation":   5,
-	"launchColor"       :   [1,1,1,1],
 	"launchSize"        :   0.05,
-	"particleSize"      :   0.05,
-	"initPosX"          :   -3,
-	"initPosY"          :   -1,
-	"initPosZ"			:	0
+	"initPosX"          :   -3.1,
+	"initPosY"          :   0,
+	"initPosZ"			:	-2
 }
