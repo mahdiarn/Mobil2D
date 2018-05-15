@@ -1,6 +1,8 @@
 from OpenGLContext import testingcontext
 BaseContext = testingcontext.getInteractive()
+BaseContext.APPLICATION_NAME="MOMOBILAN"
 from OpenGL.GL import *
+import logging
 import time
 import math
 try:
@@ -9,6 +11,7 @@ except ImportError, err:
     from Image import open
 from OpenGL.GLU import *
 from OpenGL.constants import GLfloat_3,GLfloat_4
+from particles import *
 class TestContext( BaseContext ):
     """Texture Filters, Lighting, Keyboard Control"""
     usage ="""Demonstrates filter functions:
@@ -17,6 +20,7 @@ class TestContext( BaseContext ):
 """
     initialPosition = (0,0,3) # set initial camera position, tutorial does the re-positioning
     def OnInit( self ):
+        self.asep = ParticleSystem()	
         """Load the image on initial load of the application"""
         self.imageIDs = self.loadImages()
         self.currentFilter = 0 # index into imageIDs
@@ -41,6 +45,7 @@ class TestContext( BaseContext ):
 				'keypress', name = 'a', function = self.OnGoLeft
 			)   
         print self.usage
+        	
         glLightfv( GL_LIGHT1, GL_AMBIENT, GLfloat_4(0.2, .2, .2, 1) );
         glLightfv(GL_LIGHT1, GL_DIFFUSE, GLfloat_3(self.lightIntensity,self.lightIntensity,self.lightIntensity));
         glLightfv(GL_LIGHT1, GL_POSITION, GLfloat_4(0,0,3,1) );
@@ -88,8 +93,8 @@ class TestContext( BaseContext ):
         )
         print 'finished mip-mapped'
         return IDs
-    def Render( self, mode = 0):
-        BaseContext.Render( self, mode )
+    def Render( self, mode = 0):        
+        BaseContext.Render( self, mode )        
         if self.lightsOn:
             glEnable( GL_LIGHTING )
             glEnable(GL_LIGHT1);
@@ -103,14 +108,14 @@ class TestContext( BaseContext ):
         glEnable(GL_TEXTURE_2D)
         # re-select our texture, could use other generated textures
         # if we had generated them earlier...
+        
         glBindTexture(GL_TEXTURE_2D, self.imageIDs[self.currentFilter])
+        self.asep.update()
         self.drawHouse()
         self.drawRoad()
         glTranslatef(self.carTranslation, 0, 0)
-        self.drawCube()
-        
-        
-	glTranslatef(0,-1.0,-2.0);
+        self.drawCube()                
+        glTranslatef(0,-1.0,-2.0);
         glRotated(90,1,0,0)
         self.draw_cylinder()
         glTranslatef(-2.5,0.0,0);
@@ -119,7 +124,8 @@ class TestContext( BaseContext ):
         glRotated(180,1,0,0)
         self.draw_cylinder()
         glTranslatef(2.5,0.0,0);
-        self.draw_cylinder()
+        self.draw_cylinder()        
+        
     ### Callback-handlers
     def OnIdle( self, ):
         self.triggerRedraw(1)
