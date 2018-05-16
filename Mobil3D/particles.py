@@ -92,10 +92,10 @@ class ParticleSystem():
 		self.y = params['initPosY']
 		self.z = params['initPosZ']
 		self.timer = 0
-		self.addParticle()
+		self.addParticle(self.x)
 
-	def addParticle(self):
-		initX = params['initPosX']
+	def addParticle(self, x):
+		initX = params['initPosX'] + x
 		initY = params['initPosY']
 		initZ = params['initPosZ']
 		speed = params['particleSpeed']
@@ -108,12 +108,12 @@ class ParticleSystem():
 		f = ParticleBurst(initX,initY,initZ,vx,vy,vz )			
 		particleList.append(f)
 
-	def update(self):
+	def update(self,x):
 		interval = params['launchIterval']
 		self.timer += 1
-
+		#self.x = params['initPosX'] + x
 		if self.timer % interval == 0 or self.timer < 2:		
-			self.addParticle()
+			self.addParticle(x)
 		
 		for i in range(len(particleList)-1,0,-1):
 			p = particleList[i]

@@ -4,7 +4,7 @@
 	"windX"             :   0.0001,
 	"windY"             :   0.0001,
 	"windZ"             :   0,
-	"maxAge"            :   10000,
+	"maxAge"            :   140,
 	"launchSpeed"       :   0.001,
 	"launchVariation"   :   50,
 	"launchIterval"     :   1,

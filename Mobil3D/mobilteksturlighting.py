@@ -108,7 +108,8 @@ class TestContext( BaseContext ):
         # if we had generated them earlier...
         
         glBindTexture(GL_TEXTURE_2D, self.imageIDs[self.currentFilter])
-        self.asep.update()
+        
+        self.asep.update(self.carTranslation)
         self.hujan.update()
         self.drawHouse()
         self.drawRoad()
@@ -144,10 +145,12 @@ class TestContext( BaseContext ):
         self.lightIntensity = self.lightIntensity - 0.1
         print "Lights now %d"% (self.lightIntensity)
     def OnGoRight( self, event ):
-        self.carTranslation = self.carTranslation + 0.2
+		if (self.carTranslation < 15) :
+			self.carTranslation = self.carTranslation + 0.2
 		
     def OnGoLeft ( self, event ):
-        self.carTranslation = self.carTranslation - 0.2
+		if (self.carTranslation > -15) :
+			self.carTranslation = self.carTranslation - 0.2
     def drawCube( self ):
         "Draw a cube with both normals and texture coordinates"
         glBegin(GL_TRIANGLES);

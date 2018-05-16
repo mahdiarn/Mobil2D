@@ -82,19 +82,16 @@ class ParticleBurst2(Particle2):
 
 	def check_particle_age(self):
 		
-		if self.vy <0:
-			self.age += 1
-
-		temp = int ( 100*  random.random()) + params['particleVariation']
+		self.age += 1
 		
-		if self.age > temp:
+		if self.age > 140:
 			self.is_dead = True			
 
 class ParticleSystem2():
 	def __init__(self):		
 		self.x = round(random.uniform(-20.0,20.0),2)
 		self.y = round(random.uniform(-3.0,3.0),2)
-		self.z = 10
+		self.z = 5
 		self.timer = 0
 		print self.x
 		print self.y
